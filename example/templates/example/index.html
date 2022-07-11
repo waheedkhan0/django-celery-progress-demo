@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -16,7 +17,19 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <h1>Done!</h1>
-        <script src="" async defer></script>
+        <div id="celery-result"></div>
+        <div class='progress-wrapper'>
+            <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+          </div>
+          <div id="progress-bar-message">Waiting for progress to start...</div>
+          <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+                CeleryProgressBar.initProgressBar(progressUrl);
+              });
+              // JQuery
+                var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+          </script>
     </body>
 </html>

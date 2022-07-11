@@ -5,5 +5,5 @@ from .tasks import go_to_sleep
 
 # Create your views here.
 def index(request):
-    go_to_sleep.delay(5)
-    return render(request,'example/index.html')
+    task = go_to_sleep.delay(1)
+    return render(request,'example/index.html',context={'task_id': task.task_id})
